@@ -94,6 +94,25 @@ export default loginSlice.reducer;
 
 
 
+// store/index.js
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./userSlice";
+import loginReducer from "./loginSlice";
+
+export const store = configureStore({
+  reducer: {
+    user: userReducer,
+    login: loginReducer,
+  },
+});
+
+export default store;
+
+
+
+
+
+
   // // get home response
   const { data, isLoader, isError, error } = useSelector(
     (state) => state?.users
@@ -101,6 +120,9 @@ export default loginSlice.reducer;
 
 
   dispatch(authLogin());
+
+
+
 
 
 
