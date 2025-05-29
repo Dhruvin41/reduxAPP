@@ -126,3 +126,54 @@ export default store;
 
 
 
+// add to cart 
+
+
+// redux/slices/cartSlice.js
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  cartItems: [], // array of product objects
+};
+
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState,
+  reducers: {
+    addToCart: (state, action) => {
+      const item = action.payload;
+      const exists = state.cartItems.find(i => i.id === item.id);
+
+      if (exists) {
+        exists.quantity += 1;
+      } else {
+        state.cartItems.push({ ...item, quantity: 1 });
+      }
+    },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter(i => i.id !== action.payload.id);
+    },
+    clearCart: (state) => {
+      state.cartItems = [];
+    },
+  },
+});
+
+export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+
+export default cartSlice.reducer;
+
+
+ const handleAddToCart = () => {
+    dispatch(addToCart(product));
+  };
+
+
+const cartItems = useSelector(state => state.cart.cartItems);
+
+
+
+
+
+
+
